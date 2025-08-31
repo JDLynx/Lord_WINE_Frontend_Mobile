@@ -1,0 +1,10 @@
+<resources>
+    <style name="TextInputLayoutAppearance" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">#921913</item>
+        <item name="boxStrokeColor">#921913</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance.HintText" parent="@android:style/TextAppearance">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
