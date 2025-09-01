@@ -1,11 +1,13 @@
 package com.juanmolina.lordwine;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -23,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextCorreo;
     private EditText editTextContrasena;
     private Button buttonIniciarSesion;
+    private TextView textViewOlvidoContrasena;
+    private TextView textViewEnlaceRegistro; // Nuevo: TextView para el enlace de registro
 
     private static final String URL_BASE = "https://lord-wine-backend.onrender.com/";
     private static final String TAG = "LoginActivity";
@@ -35,11 +39,31 @@ public class LoginActivity extends AppCompatActivity {
         editTextCorreo = findViewById(R.id.editTextCorreo);
         editTextContrasena = findViewById(R.id.editTextContrasena);
         buttonIniciarSesion = findViewById(R.id.buttonIniciarSesion);
+        textViewOlvidoContrasena = findViewById(R.id.textViewOlvidoContrasena);
+        textViewEnlaceRegistro = findViewById(R.id.textViewEnlaceRegistro); // Nuevo: Inicializar el TextView del enlace
 
         buttonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iniciarSesion();
+            }
+        });
+
+        // Listener para el enlace de "Olvidaste tu contraseña"
+        textViewOlvidoContrasena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, activity_solicitar_recuperacion.class);
+                startActivity(intent);
+            }
+        });
+
+        // Nuevo: Listener para el enlace de "Regístrate aquí."
+        textViewEnlaceRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, activity_registro.class);
+                startActivity(intent);
             }
         });
     }
@@ -73,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (respuesta.getToken() != null && respuesta.getRol() != null) {
                         String rolUsuario = respuesta.getRol();
                         Toast.makeText(LoginActivity.this, "¡Bienvenido, " + rolUsuario + "!", Toast.LENGTH_SHORT).show();
-                        // TODO: Navegar a la siguiente actividad
+
                     } else {
                         Toast.makeText(LoginActivity.this, "Respuesta de API inválida: token o rol incompletos.", Toast.LENGTH_SHORT).show();
                     }
