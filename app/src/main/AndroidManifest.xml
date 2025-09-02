@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity_home"
+            android:exported="false" />
+        <activity
+            android:name=".activity_chatbot"
+            android:exported="false" />
+        <activity
             android:name=".activity_registro"
             android:exported="false" />
         <activity

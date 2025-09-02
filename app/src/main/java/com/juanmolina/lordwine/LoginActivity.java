@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextContrasena;
     private Button buttonIniciarSesion;
     private TextView textViewOlvidoContrasena;
-    private TextView textViewEnlaceRegistro; // Nuevo: TextView para el enlace de registro
+    private TextView textViewEnlaceRegistro;
 
     private static final String URL_BASE = "https://lord-wine-backend.onrender.com/";
     private static final String TAG = "LoginActivity";
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextContrasena = findViewById(R.id.editTextContrasena);
         buttonIniciarSesion = findViewById(R.id.buttonIniciarSesion);
         textViewOlvidoContrasena = findViewById(R.id.textViewOlvidoContrasena);
-        textViewEnlaceRegistro = findViewById(R.id.textViewEnlaceRegistro); // Nuevo: Inicializar el TextView del enlace
+        textViewEnlaceRegistro = findViewById(R.id.textViewEnlaceRegistro);
 
         buttonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Listener para el enlace de "Olvidaste tu contraseña"
         textViewOlvidoContrasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Nuevo: Listener para el enlace de "Regístrate aquí."
         textViewEnlaceRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +95,10 @@ public class LoginActivity extends AppCompatActivity {
                     if (respuesta.getToken() != null && respuesta.getRol() != null) {
                         String rolUsuario = respuesta.getRol();
                         Toast.makeText(LoginActivity.this, "¡Bienvenido, " + rolUsuario + "!", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(LoginActivity.this, activity_home.class);
+                        startActivity(intent);
+                        finish();
 
                     } else {
                         Toast.makeText(LoginActivity.this, "Respuesta de API inválida: token o rol incompletos.", Toast.LENGTH_SHORT).show();

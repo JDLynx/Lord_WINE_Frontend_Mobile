@@ -38,12 +38,16 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
 
+    // Dependencias para la conexión a la API
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
-    // Nueva dependencia para el CardView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
+
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
