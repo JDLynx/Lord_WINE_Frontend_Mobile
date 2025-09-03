@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/categoria_vinos_tintos"
+        android:title="Vinos Tintos" />
+    <item
+        android:id="@+id/categoria_vinos_blancos"
+        android:title="Vinos Blancos" />
+    <item
+        android:id="@+id/categoria_espumosos"
+        android:title="Vinos Espumosos" />
+</menu>
