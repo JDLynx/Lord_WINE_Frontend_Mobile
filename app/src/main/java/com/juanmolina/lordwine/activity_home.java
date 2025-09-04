@@ -2,33 +2,29 @@ package com.juanmolina.lordwine;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.PopupMenu;
-import androidx.annotation.NonNull;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.juanmolina.lordwine.ApiService;
 import com.juanmolina.lordwine.model.Category;
-import com.juanmolina.lordwine.HomeFragment;
-import com.juanmolina.lordwine.activity_chatbot;
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import android.util.Log;
 
 public class activity_home extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private List<Category> categoriesList;
     private static final String BASE_URL = "https://lord-wine-backend.onrender.com/";
 
     @Override
@@ -39,6 +35,8 @@ public class activity_home extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        categoriesList = new ArrayList<>();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
@@ -69,6 +67,31 @@ public class activity_home extends AppCompatActivity {
 
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             int categoryId = menuItem.getItemId();
+
+            Category selectedCategory = null;
+            for (Category category : categoriesList) {
+                if (category.getId() == categoryId) {
+                    selectedCategory = category;
+                    break;
+                }
+            }
+
+            if (selectedCategory != null) {
+                String categoryName = selectedCategory.getName();
+                if (isVinoCategory(categoryName)) {
+                    // No hace nada para las categorías de vino
+                } else if ("Zumo".equals(categoryName)) {
+                    Intent intent = new Intent(this, activity_zumo.class);
+                    startActivity(intent);
+                } else if ("Ron".equals(categoryName)) {
+                    Intent intent = new Intent(this, activity_ron.class);
+                    startActivity(intent);
+                } else if ("Mistela".equals(categoryName)) {
+                    Intent intent = new Intent(this, activity_mistelas.class);
+                    startActivity(intent);
+                }
+            }
+
             drawerLayout.closeDrawer(navigationView);
             return true;
         });
@@ -91,10 +114,12 @@ public class activity_home extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Category> categories = response.body();
+                    categoriesList.clear();
+                    categoriesList.addAll(response.body());
+
                     navigationView.getMenu().clear();
-                    for (int i = 0; i < categories.size(); i++) {
-                        Category category = categories.get(i);
+                    for (int i = 0; i < categoriesList.size(); i++) {
+                        Category category = categoriesList.get(i);
                         navigationView.getMenu().add(0, category.getId(), i, category.getName());
                     }
                 }
@@ -105,6 +130,14 @@ public class activity_home extends AppCompatActivity {
                 Log.e("API_CALL", "Error al obtener categorías: " + t.getMessage());
             }
         });
+    }
+
+    private boolean isVinoCategory(String categoryName) {
+        return "Vino".equals(categoryName) ||
+                "Vino Tinto".equals(categoryName) ||
+                "Vino Rosado".equals(categoryName) ||
+                "Vino Blanco".equals(categoryName) ||
+                "Espumosos".equals(categoryName);
     }
 
     private void replaceFragment(Fragment fragment) {

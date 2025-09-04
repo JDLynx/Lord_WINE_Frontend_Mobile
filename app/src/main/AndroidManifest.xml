@@ -17,6 +17,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity_vinos"
+            android:exported="false" />
+        <activity
+            android:name=".activity_mistelas"
+            android:exported="false" />
+        <activity
+            android:name=".activity_ron"
+            android:exported="false" />
+        <activity
+            android:name=".activity_zumo"
+            android:exported="false" />
+        <activity
             android:name=".activity_home"
             android:exported="false" />
         <activity

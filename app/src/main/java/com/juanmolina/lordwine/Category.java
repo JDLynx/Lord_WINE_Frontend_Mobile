@@ -1,4 +1,3 @@
-// Archivo: com.juanmolina.lordwine.model/Category.java
 package com.juanmolina.lordwine.model;
 
 import com.google.gson.annotations.SerializedName;

@@ -9,9 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.List;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductoViewHolder> {
@@ -19,9 +16,9 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     private List<Producto> listaProductos;
     private Context context;
 
-    public ProductosAdapter(List<Producto> listaProductos, Context context) {
-        this.listaProductos = listaProductos;
+    public ProductosAdapter(Context context, List<Producto> listaProductos) {
         this.context = context;
+        this.listaProductos = listaProductos;
     }
 
     @NonNull
@@ -36,16 +33,8 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
         Producto producto = listaProductos.get(position);
         holder.textViewNombre.setText(producto.getProdNombre());
-        holder.textViewPrecio.setText("$" + String.format("%.2f", producto.getProdPrecio()));
+        holder.textViewPrecio.setText("$" + String.format("%,.2f", producto.getProdPrecio()));
 
-        if (producto.getProdUrlImagen() != null && !producto.getProdUrlImagen().isEmpty()) {
-            Glide.with(context)
-                    .load(producto.getProdUrlImagen())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imageViewProducto);
-        } else {
-            holder.imageViewProducto.setImageResource(R.drawable.lordwinelogotexto);
-        }
     }
 
     @Override
