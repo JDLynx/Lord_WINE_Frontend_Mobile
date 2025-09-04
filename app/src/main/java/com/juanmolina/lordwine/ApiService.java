@@ -1,11 +1,12 @@
 package com.juanmolina.lordwine;
 
+import com.juanmolina.lordwine.model.Category;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import com.juanmolina.lordwine.model.Category;
 
 public interface ApiService {
     @POST("api/auth/login")

@@ -36,7 +36,6 @@ public class HomeFragment extends Fragment {
     private List<Producto> listaProductos;
 
     public HomeFragment() {
-        // Constructor vacío requerido
     }
 
     @Override
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment {
 
         // Configurar RecyclerView
         listaProductos = new ArrayList<>();
-        productosAdapter = new ProductosAdapter(listaProductos, getContext());
+        productosAdapter = new ProductosAdapter(getContext(), listaProductos);
         recyclerViewProductos.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerViewProductos.setAdapter(productosAdapter);
 

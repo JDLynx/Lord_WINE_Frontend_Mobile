@@ -1,6 +1,7 @@
 package com.juanmolina.lordwine;
 
 import com.google.gson.annotations.SerializedName;
+import com.juanmolina.lordwine.model.Category;
 
 public class Producto {
 
@@ -16,11 +17,8 @@ public class Producto {
     @SerializedName("prodPrecio")
     private double prodPrecio;
 
-    @SerializedName("prodUrlImagen")
-    private String prodUrlImagen;
-
-    @SerializedName("categIdCategoria")
-    private int categIdCategoria;
+    @SerializedName("categoria")
+    private Category categoria;
 
     // Getters
     public int getProdIdProducto() {
@@ -39,11 +37,7 @@ public class Producto {
         return prodPrecio;
     }
 
-    public String getProdUrlImagen() {
-        return prodUrlImagen;
-    }
-
-    public int getCategIdCategoria() {
-        return categIdCategoria;
+    public Category getCategoria() {
+        return categoria;
     }
 }
